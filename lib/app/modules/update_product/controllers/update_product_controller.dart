@@ -5,22 +5,28 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UpdateProductController extends GetxController {
   late TextEditingController cNama;
-  late TextEditingController cHarga;
+  late TextEditingController cNpm;
+  late TextEditingController cAlamat;
+  late TextEditingController cProdi;
+  late TextEditingController cJK;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<DocumentSnapshot<Object?>> getData(String id) async {
-    DocumentReference docRef = firestore.collection("products").doc(id);
+    DocumentReference docRef = firestore.collection("mahasiswa").doc(id);
 
     return docRef.get();
   }
 
-  void updateProduct(String nama, String harga, String id) async {
-    DocumentReference productById = firestore.collection("products").doc(id);
+  void updateProduct(String nama, String npm, String id) async {
+    DocumentReference productById = firestore.collection("mahasiswa").doc(id);
     try {
       await productById.update({
         "name": nama,
-        "price": harga,
+        "npm": npm,
+        "alamat": alamat,
+        "prodi": program_studi,
+        "jk": jk,
       });
 
        Get.defaultDialog(
@@ -28,7 +34,10 @@ class UpdateProductController extends GetxController {
         middleText: "Berhasil Mengubah Data Produk.",
         onConfirm: () {
           cNama.clear();
-          cHarga.clear();
+          cNpm.clear();
+          cAlamat.clear();
+          cProdi.clear();
+          cJK.clear();
           Get.back();
           Get.back();
         },  
@@ -38,7 +47,7 @@ class UpdateProductController extends GetxController {
       print(e);
       Get.defaultDialog(
         title: "Terjadi kesalahan",
-        middleText: "Gagal Menambahkan Produk.",
+        middleText: "Gagal Menambahkan Mahasiswa",
       );
     }
   }

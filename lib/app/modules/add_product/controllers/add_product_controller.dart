@@ -4,24 +4,34 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddProductController extends GetxController {
   late TextEditingController cNama;
-  late TextEditingController cHarga;
+  late TextEditingController cNpm;
+  late TextEditingController cAlamat;
+  late TextEditingController cProdi;
+  late TextEditingController cJK;
+
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   void addProduct(String nama, String harga) async {
-    CollectionReference products= firestore.collection("products");
+    CollectionReference mahasiswa= firestore.collection("mahasiswa");
 
     try {
-      await products.add({
+      await mahasiswa.add({
         "name" : nama,
-        "price" : harga,
+        "npm" : npm,
+        "alamat" : alamat,
+        "prodi" : program_studi,
+        "jk" : jk,
     });
     Get.defaultDialog(
       title: "Berhasil",
       middleText: "Berhasil menyimpan data produk",
       onConfirm: (){
         cNama.clear();
-        cHarga.clear();
+        cNpm.clear();
+        cAlamat.clear();
+        cProdi.clear();
+        cJK.clear();
         Get.back();
         Get.back();
         textConfirm: "OK";      }
@@ -36,14 +46,21 @@ class AddProductController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     cNama = TextEditingController();
-    cHarga = TextEditingController();
+    cNpm = TextEditingController();
+    cAlamat = TextEditingController();
+    cProdi = TextEditingController();
+    cJK = TextEditingController();
+
     super.onInit();
   }
   @override
   void onClose() {
     // TODO: implement onClose
     cNama.dispose();
-    cHarga.dispose();
+    cNpm.clear();
+    cAlamat.clear();
+    cProdi.clear();
+    cJK.clear();
     super.onClose();
   }
 }
